@@ -2,24 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome',
-        [
-            'greeting' => 'Greetings',
-            'person' => request('person','World'),
-//            'tasks' => [
-//                'Walk cat',
-//                'Eat cookies',
-//                'Watch TV',
-//                'Finish Laracasts tutorial'
-//            ]
-            'tasks' => [],
-        ]
-    );
+Route::get('/',function(){
+    $ideas = session()->get('ideas', []);
+    return view('ideas', ['ideas' => $ideas]);
 });
 
-Route::get('/about', function () {
-    return view('about');
+Route::post('/ideas',function() {
+    $idea = request('idea');
+    session()->push('ideas',$idea);
+    return redirect('/');
 });
-
-Route::view('/contact','contact'); // Same as above
