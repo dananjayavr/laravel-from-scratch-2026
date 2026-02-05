@@ -1,12 +1,17 @@
-<x-layout title="Ideas">
-    <div class="mt-6">
-        <h2 class="text-white font-bold">Your Idea:</h2>
-        <div class="mt-6 text-white">
+<x-layout title="Idea">
+    <h2 class="font-bold mt-2">Your Idea:</h2>
+    <div class="mt-6 border-2 border-dashed p-6">
+        <div class="mt-6">
             {{ $idea->description }}
         </div>
+
+        <div class="mt-6 flex items-center gap-x-6">
+            <a href="/ideas/{{ $idea->id }}/edit" class="btn">
+                Edit
+            </a>
+        </div>
     </div>
-    <div class="mt-6 flex items-center gap-x-6">
-        <a href="/ideas/{{ $idea->id }}/edit"
-           class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Edit</a>
+    <div class="mt-2">
+        <a href="{{ route('ideas.index') }}"><< Back to Ideas</a>
     </div>
 </x-layout>
