@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\IdeaRequest;
 use App\Models\Idea;
+use App\Notifications\IdeaPublished;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -33,10 +34,12 @@ class IdeaController extends Controller
      */
     public function store(IdeaRequest $request)
     {
-        Auth::user()->ideas()->create([
+        $idea = Auth::user()->ideas()->create([
             'description' => request('description'),
             'state' => 'pending',
         ]);
+
+        Auth::user()->notify(new IdeaPublished($idea));
 
         return redirect('/ideas');
     }
@@ -78,7 +81,7 @@ class IdeaController extends Controller
     public function destroy(Idea $idea)
     {
         Gate::authorize('update',$idea);
-        
+
         $idea->delete();
         return redirect('/ideas');
     }
