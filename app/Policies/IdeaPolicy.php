@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Policies;
+
+use App\Models\Idea;
+use App\Models\User;
+use Illuminate\Auth\Access\Response;
+
+class IdeaPolicy
+{
+
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, Idea $idea): bool
+    {
+        return $user->is($idea->user);
+        //return $user->id === $idea->user_id; // same as above
+        //return $user->id === $idea->user_id ? Response::allow() : Response::denyAsNotFound();
+    }
+
+}
