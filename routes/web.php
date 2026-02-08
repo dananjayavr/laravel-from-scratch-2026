@@ -6,7 +6,7 @@ use App\Http\Controllers\IdeaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return "Placeholder for homepage";
+    return "Welcome to the homepage";
 });
 
 Route::middleware('auth')->group(function () {
